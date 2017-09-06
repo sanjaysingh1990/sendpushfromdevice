@@ -65,7 +65,7 @@ public class HttpURLConnectionExample {
 
 	// HTTP POST request
 	public String sendPost() throws Exception {
-		String authKey ="AIzaSyBZfeKbf4oXEHmHAv23dQg70zdqtM63TN0"; // You FCM AUTH key
+		String authKey ="AIzaSyD3VGRPj9968kun-pmJozO3zQJLRcSX3dY"; // You FCM AUTH key
 
 		String url = "https://fcm.googleapis.com/fcm/send";
 		URL obj = new URL(url);
@@ -78,12 +78,23 @@ public class HttpURLConnectionExample {
 		conn.setRequestProperty("Authorization", "key=" + authKey);
 		conn.setRequestProperty("Content-Type", "application/json");
 
+		//notification object
+		JSONObject notification = new JSONObject();
+		notification.put("title", "FCM Notificatoin Title"); // Notification title
+		notification.put("text", "Hello First Test notification"); // Notification body
+
+        //main object
 		JSONObject data = new JSONObject();
-		data.put("to","fqnPKLKY5oY:APA91bEO2aQdOaQomBkPfnZPGG0UKtBIxzJ-klXSC81iBNiwxXWbf2a8EP9AWxTzvev-ZdPsc_nQVnIVpbQcY_iVRBKA7qKwDtICw7j-CsXK4EihKnK1bWYorcbecssN7yWIbNAOWdNZ");
+         //add notificaiton body
+		data.put("notification",notification);
+		//add receipeint
+		data.put("to","ekIcft8MTXI:APA91bGDxG2qlznVXEWxvNB9qorL4B1poZVcBcA9_kVA7s8GAkAIx-Iuf5IA3L7Hbn-NjUBbdscEyK-g_HMjInHMJojtd5BmsVMQxLKzv9cVRAgFIDNGuz8Ok7vNRESaoXZA-C87ahR3");
 		JSONObject info = new JSONObject();
 		info.put("title", "FCM Notificatoin Title"); // Notification title
 		info.put("body", "Hello First Test notification"); // Notification body
 		data.put("data", info);
+
+
 
 		OutputStreamWriter wr = new OutputStreamWriter(conn.getOutputStream());
 		wr.write(data.toString());
